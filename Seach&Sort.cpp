@@ -2,6 +2,7 @@
 using namespace std;
 
 int main(){
+    int n;
     char pil;
     cout << "----MENU----" << endl;    
     cout << "1. Input Data Buku" << endl;   
@@ -17,10 +18,19 @@ int main(){
         char cari;
         case '1':
         cout << "Masukan jumlah buku : " ; cin >> n;
+        inputBuku(n);
         break;
         case '2': 
         cout << "Data Buku : " << endl;
-        inputBuku(n);
+        for (int a = 0; a < n; a++)
+        {
+            cout << "Buku ke-" << a+1 << endl;
+            cout << "Judul Buku : " << buku[a].judul << endl;
+            cout << "Pengarang : " << buku[a].pengarang << endl;
+            cout << "Penerbit : " << buku[a].penerbit << endl;
+            cout << "Tahun Terbit : " << buku[a].tahun << endl;
+            cout << "Harga : " << buku[a].harga << endl;
+        }
         break;
         case '3':
         cout << "Pengurutan Data dengan Bubble Sort" << endl;
