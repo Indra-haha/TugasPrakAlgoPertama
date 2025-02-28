@@ -52,8 +52,9 @@ int main(){
         break;
         case '3':
         cout << "Pengurutan Data dengan Bubble Sort" << endl;
-        cout << "1. Urutkan data secara ascending : " ; cin >> urutan;
-        cout << "2. Urutkan data secara descending : "  ; cin >> urutan;
+        cout << "1. Urutkan data secara ascending : " << endl;
+        cout << "2. Urutkan data secara descending : "  << endl; 
+        cout << "Masukan pilihan : " ; cin >> urutan;
         switch (urutan)
         {
             case '1':
