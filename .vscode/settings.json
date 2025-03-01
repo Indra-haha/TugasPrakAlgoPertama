@@ -60,6 +60,7 @@
     "*.ejs": "html",
     "array": "cpp",
     "ostream": "cpp",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "iomanip": "cpp"
   }
 }
