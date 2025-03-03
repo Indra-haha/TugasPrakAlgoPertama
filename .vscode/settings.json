@@ -59,14 +59,17 @@
   "files.associations": {
     "*.ejs": "html",
     "array": "cpp",
-    "ostream": "cpp",
-    "iostream": "cpp",
-    "iomanip": "cpp",
-    "iosfwd": "cpp",
     "*.tcc": "cpp",
     "string": "cpp",
+    "unordered_map": "cpp",
+    "memory": "cpp",
+    "optional": "cpp",
     "string_view": "cpp",
-    "ranges": "cpp"
-  },
-  "C_Cpp.errorSquiggles": "disabled"
+    "istream": "cpp",
+    "ostream": "cpp",
+    "sstream": "cpp",
+    "streambuf": "cpp",
+    "functional": "cpp",
+    "tuple": "cpp"
+  }
 }
