@@ -282,47 +282,44 @@ int quick(int k, buku *manipulasi, int awal, int akhir)
 
 int sequential_search(int temp, buku *data)
 {
-    if (temp >= 3)
+    int i, x;
+    bool found;
+    cout << "Masukkan tahun terbit buku yang anda cari = ";
+    cin >> x;
+    i = 0;
+    found = false;
+    while ((i <= temp) && (!found))
     {
-        int i, x;
-        bool found;
-        cout << "Masukkan tahun terbit buku yang anda cari = ";
-        cin >> x;
-        i = 0;
-        found = false;
-        while ((i <= temp) && (!found))
+        if (data[i].terbit == x)
         {
-            if (data[i].terbit == x)
-            {
-                found = true;
-            }
-            else
-            {
-                i++;
-            }
-        }
-        if (i <= temp && (found))
-        {
-            cout << endl;
-            tampilanHeaderSearch();
-            for (int k = 0; k < 2; k++)
-            {
-                switch (k)
-                {
-                case 0:
-                    cout << data[i].judul << setw(20 - data[i].judul.size()) << setiosflags(ios::right) << "|" << setw(2) << setiosflags(ios::right) << " ";
-                    break;
-                case 1:
-                    cout << data[i].terbit << setw(15 - (to_string(data[i].terbit)).size()) << setiosflags(ios::right) << "|";
-                    break;
-                }
-            }
-            cout << endl;
+            found = true;
         }
         else
         {
-            cout << "Buku yg terbit pada tahun " << x << " tidak tersedia." << endl;
+            i++;
         }
+    }
+    if (i <= temp && (found))
+    {
+        cout << endl;
+        tampilanHeaderSearch();
+        for (int k = 0; k < 2; k++)
+        {
+            switch (k)
+            {
+            case 0:
+                cout << data[i].judul << setw(20 - data[i].judul.size()) << setiosflags(ios::right) << "|" << setw(2) << setiosflags(ios::right) << " ";
+                break;
+            case 1:
+                cout << data[i].terbit << setw(15 - (to_string(data[i].terbit)).size()) << setiosflags(ios::right) << "|";
+                break;
+            }
+        }
+        cout << endl;
+    }
+    else
+    {
+        cout << "Buku yg terbit pada tahun " << x << " tidak tersedia." << endl;
     }
     cout << endl;
     cout << "Kembali ke menu utama [y/n] : ";
@@ -332,7 +329,6 @@ int sequential_search(int temp, buku *data)
 
 int binary_search(int cari, buku *manipulasi, int temp)
 {
-    cout << endl;
     int awal = 0, akhir = temp - 1;
     int tengah;
     bool found = false; //
@@ -356,6 +352,7 @@ int binary_search(int cari, buku *manipulasi, int temp)
     {
         cout << endl;
         tampilanHeaderSearch();
+        cout << endl;
         for (int k = 0; k < 2; k++)
         {
             switch (k)
@@ -373,10 +370,14 @@ int binary_search(int cari, buku *manipulasi, int temp)
     else
     {
         cout << "Buku yg terbit pada tahun " << cari << " tidak tersedia." << endl;
+        cout << endl;
     }
-    cout << endl;
     cout << "Kembali ke menu utama [y/n] : ";
     cin >> home;
+    if ( home = 'y')
+    {
+        delete manipulasi;
+    }
     return 0;
 }
 
