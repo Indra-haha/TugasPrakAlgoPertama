@@ -1,32 +1,23 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
-#include <string.h>
 using namespace std;
 
-int n, a = 0, temp = 0; // n = jumlah data, a = angka default input
+int a = 0, temp = 0;
+int n;
 char pil, home;
 string cari;
 struct buku
 {
-    char judul[30];
-    char pengarang[30];
-    char penerbit[30];
+    string judul;
+    string pengarang;
+    string penerbit;
     int terbit;
     int harga;
 };
-buku data[9999999];
-struct dataKarantina
-{
-    char judul[30];
-    char pengarang[30];
-    char penerbit[30];
-    int terbit;
-    int harga;
-};
-dataKarantina sementara[9999999];
+buku data[999999];
 
-int inputDataBuku(int numBooks, int a)
+int inputDataBuku(int numBooks)
 {
     temp += numBooks;
     if (a == 0)
@@ -38,26 +29,25 @@ int inputDataBuku(int numBooks, int a)
         cout << "Anda memiliki " << temp << " data buku." << endl;
     }
     cout << "Anda akan memasukan " << numBooks << " data buku." << endl;
-    do
+    for (int x = a; x < temp; x++)
     {
-        cout << a + 1 << ". Judul Buku" << setw(7) << setiosflags(ios::right) << ": ";
+        cout << x + 1 << ". Judul Buku" << setw(7) << setiosflags(ios::right) << ": ";
         cin.ignore();
-        cin.getline(data[a].judul, 30);
+        getline(cin, data[x].judul);
         cout << "   Pengarang" << setw(8) << setiosflags(ios::right) << ": ";
         cin.ignore();
-        cin.getline(data[a].pengarang, 30);
+        getline(cin, data[x].pengarang);
         cout << "   Penerbit" << setw(9) << setiosflags(ios::right) << ": ";
         cin.ignore();
-        cin.getline(data[a].penerbit, 30);
+        getline(cin, data[x].penerbit);
         cout << "   Tahun Terbit" << setw(5) << setiosflags(ios::right) << ": ";
-        cin >> data[a].terbit;
+        cin >> data[x].terbit;
         cout << "   Harga" << setw(12) << setiosflags(ios::right) << ": ";
-        cin >> data[a].harga;
+        cin >> data[x].harga;
         cout << endl;
-        a++;
-    } while (a < temp);
+    }
     a += numBooks;
-    return 0;
+    return temp, a;
 }
 
 int tampilanHeader()
@@ -89,13 +79,13 @@ int dataBuku()
             switch (k)
             {
             case 0:
-                cout << data[b].judul << setw(20 - strlen(data[b].judul)) << setiosflags(ios::right) << "|";
+                cout << data[b].judul << setw(20 - data[b].judul.size()) << setiosflags(ios::right) << "|";
                 break;
             case 1:
-                cout << data[b].pengarang << setw(20 - strlen(data[b].pengarang)) << setiosflags(ios::right) << "|";
+                cout << data[b].pengarang << setw(20 - data[b].pengarang.size()) << setiosflags(ios::right) << "|";
                 break;
             case 2:
-                cout << data[b].penerbit << setw(20 - strlen(data[b].penerbit)) << setiosflags(ios::right) << "|";
+                cout << data[b].penerbit << setw(20 - data[b].penerbit.size()) << setiosflags(ios::right) << "|";
                 break;
             case 3:
                 cout << data[b].terbit << setw(15 - (to_string(data[b].terbit)).size()) << setiosflags(ios::right) << "|";
@@ -111,80 +101,66 @@ int dataBuku()
     return 0;
 }
 
-int bubble_asc(int k, int temp)
+int salinData(buku *data, buku *manipulasi, int temp)
 {
-    for (int a = 0; a < temp; a++)
+    for (int i = 0; i < temp; i++)
     {
-        for (int b = 0; b < temp; b++)
-        {
-            sementara[a].judul[b] = data[a].judul[b];
-            sementara[a].pengarang[b] = data[a].pengarang[b];
-            sementara[a].penerbit[b] = data[a].penerbit[b];
-        }
-        sementara[a].terbit = data[a].terbit;
-        sementara[a].harga = data[a].harga;
+        manipulasi[i].judul = data[i].judul;
+        manipulasi[i].pengarang = data[i].pengarang;
+        manipulasi[i].penerbit = data[i].penerbit;
+        manipulasi[i].terbit = data[i].terbit;
+        manipulasi[i].harga = data[i].harga;
     }
-    for (int i = 0; i < temp - 1; i++)
+    return 0;
+}
+
+int bubble(int k, int temp, buku *manipulasi)
+{
+    for (int i = 0; i < temp - 1; ++i)
     {
-        for (int j = 0; j < temp - i - 1; j++)
+        for (int j = 0; j < temp - i - 1; ++j)
         {
-            for ( int l = 0; l < 30; l++)
+            // ascending
+            if (k == 1)
             {
-                if (k == 1)
-            {
-                if (sementara[i].judul[l] > sementara[i + 1].judul[l])
-                {
-                    swap(sementara[i], sementara[i + 1]);
-                }
-                else
-                {
-                    continue;
-                }
+                cout << "belum ada" << endl;
             }
             else if (k == 2)
             {
-                if (sementara[i].pengarang[l] > sementara[i + 1].pengarang[l])
-                {
-                    swap(sementara[i], sementara[i + 1]);
-                }
-                else
-                {
-                    continue;
-                }
+                cout << "berlum ada" << endl;
             }
             else if (k == 3)
             {
-                if (sementara[i].penerbit[l] > sementara[i + 1].penerbit[l])
-                {
-                    swap(sementara[i], sementara[i + 1]);
-                }
-                else
-                {
-                    continue;
-                }
+                cout << "belum ada" << endl;
             }
-            else if (k == 4)
+            else if (k == 4 && manipulasi[j].terbit > manipulasi[j + 1].terbit)
             {
-                if (sementara[i].terbit > sementara[i + 1].terbit)
-                {
-                    swap(sementara[i], sementara[i + 1]);
-                }
-                else
-                {
-                    continue;
-                }
+                swap(manipulasi[j], manipulasi[j + 1]);
             }
-            else if (k == 5)
+            else if (k == 5 && manipulasi[j].harga > manipulasi[j + 1].harga)
             {
-                if (sementara[i].harga > sementara[i + 1].harga)
-                {
-                    swap(sementara[i], sementara[j + i]);
-                }
-                else
-                {
-                    continue;
-                }
+                swap(manipulasi[j], manipulasi[j + 1]);
             }
+            // descending
+            else if (k == 6 && manipulasi[j].judul < manipulasi[j + 1].judul)
+            {
+                swap(manipulasi[j], manipulasi[j + 1]);
+            }
+            else if (k == 7 && manipulasi[j].pengarang < manipulasi[j + 1].pengarang)
+            {
+                swap(manipulasi[j], manipulasi[j + 1]);
+            }
+            else if (k == 8 && manipulasi[j].penerbit < manipulasi[j + 1].penerbit)
+            {
+                swap(manipulasi[j], manipulasi[j + 1]);
+            }
+            else if (k == 9 && manipulasi[j].terbit < manipulasi[j + 1].terbit)
+            {
+                swap(manipulasi[j], manipulasi[j + 1]);
+            }
+            else if (k == 10 && manipulasi[j].harga < manipulasi[j + 1].harga)
+            {
+                swap(manipulasi[j], manipulasi[j + 1]);
             }
         }
     }
@@ -197,42 +173,36 @@ int bubble_asc(int k, int temp)
             switch (k)
             {
             case 0:
-                cout << sementara[b].judul << setw(20 - strlen(sementara[b].judul)) << setiosflags(ios::right) << "|";
+                cout << manipulasi[b].judul << setw(20 - manipulasi[b].judul.size()) << setiosflags(ios::right) << "|";
                 break;
             case 1:
-                cout << sementara[b].pengarang << setw(20 - strlen(sementara[b].pengarang)) << setiosflags(ios::right) << "|";
+                cout << manipulasi[b].pengarang << setw(20 - manipulasi[b].pengarang.size()) << setiosflags(ios::right) << "|";
                 break;
             case 2:
-                cout << sementara[b].penerbit << setw(20 - strlen(sementara[b].penerbit)) << setiosflags(ios::right) << "|";
+                cout << manipulasi[b].penerbit << setw(20 - manipulasi[b].penerbit.size()) << setiosflags(ios::right) << "|";
                 break;
             case 3:
-                cout << sementara[b].terbit << setw(15 - (to_string(sementara[b].terbit)).size()) << setiosflags(ios::right) << "|";
+                cout << manipulasi[b].terbit << setw(15 - (to_string(manipulasi[b].terbit)).size()) << setiosflags(ios::right) << "|";
                 break;
             case 4:
-                cout << sementara[b].harga << setw(15 - (to_string(sementara[b].harga)).size()) << setiosflags(ios::right) << "|";
+                cout << manipulasi[b].harga << setw(15 - (to_string(manipulasi[b].harga)).size()) << setiosflags(ios::right) << "|";
                 break;
             }
         }
         cout << endl;
     }
+    cout << "Kembali ke menu utama [y/n] : ";
+    cin >> home;
+    if (home == 'y')
+    {
+        delete[] manipulasi;
+    }
     return 0;
 }
 
-int bubble_dsc(int n, int temp)
+int quick(int k, int temp, buku *manipulasi)
 {
     cout << "belum ada";
-    cout << n << endl;
-    cout << temp << endl;
-    // for (int j = 0; j < temp; j++)
-    // {
-    //     for (int i = j + 1; i < temp; i++)
-    //     {
-    //         if (data[j].nama[n][j] > data[i].nama[n][i])
-    //         {
-    //             swap(data[j], data[i]);
-    //         }
-    //     }
-    // }
     return 0;
 }
 
@@ -248,12 +218,24 @@ int binary_search()
     return 0;
 }
 
+int daftarPilUrutan()
+{
+    cout << "Urutkan berdasarkan" << endl;
+    cout << "1. Judul Buku" << endl;
+    cout << "2. Pengarang" << endl;
+    cout << "3. Penerbit" << endl;
+    cout << "4. Tahun Terbit" << endl;
+    cout << "5. Harga" << endl;
+    return 0;
+}
+
 int main()
 {
     do
     {
         system("cls");
         home = 'n';
+        buku *manipulasi;
         cout << "----MENU----" << endl;
         cout << "1. Input Data Buku" << endl;
         cout << "2. Tampilkan Data Buku" << endl;
@@ -270,7 +252,7 @@ int main()
             cout << "Masukan jumlah buku : ";
             cin >> n;
             system("cls");
-            inputDataBuku(n, a);
+            inputDataBuku(n);
             cout << "Kembali ke menu utama [y/n] : ";
             cin >> home;
             break;
@@ -282,7 +264,7 @@ int main()
             break;
         case '3':
             system("cls");
-            char urutan;
+            int urutan;
             cout << "-----DATA AWAL SEBELUM DI URUTKAN-----" << endl;
             dataBuku();
             cout << "Pengurutan Data dengan Bubble Sort" << endl;
@@ -293,85 +275,88 @@ int main()
             switch (urutan)
             {
                 char pilPengurutan;
-            case '1':
+            case 1:
                 cout << endl;
-                cout << "Urutkan berdasarkan" << endl;
-                cout << "1. Judul Buku" << endl;
-                cout << "2. Pengarang" << endl;
-                cout << "3. Penerbit" << endl;
-                cout << "4. Tahun Terbit" << endl;
-                cout << "5. Harga" << endl;
+                daftarPilUrutan();
                 cout << "Masukan pilihan : ";
                 cin >> pilPengurutan;
                 system("cls");
                 cout << "-----DATA SEBELUM DI URUTKAN-----" << endl;
                 dataBuku();
-                cout << endl;
-                cout << "-----DATA SETELAH DI URUTKAN-----" << endl;
-                switch (pilPengurutan)
+                if (temp > 0)
                 {
-                case '1':
-                    cout << sementara[0].judul[1] << endl;
-                    cout << "Pengurutan berdasarkan Judul Buku" << endl;
-                    bubble_asc(pilPengurutan, temp);
-                    break;
-                case '2':
-                    cout << "Pengurutan berdasarkan Pengarang" << endl;
-                    bubble_asc(pilPengurutan, temp);
-                    break;
-                case '3':
-                    cout << "Pengurutan berdasarkan Penerbit" << endl;
-                    bubble_asc(pilPengurutan, temp);
-                    break;
-                case '4':
-                    cout << "Pengurutan berdasarkan Tahun Terbit" << endl;
-                    bubble_asc(pilPengurutan, temp);
-                    break;
-                case '5':
-                    cout << "Pengurutan berdasarkan Harga" << endl;
-                    bubble_asc(pilPengurutan, temp);
+                    buku *manipulasi = new buku[temp];
+                    salinData(data, manipulasi, temp);
+                    cout << endl;
+                    cout << "-----DATA SETELAH DI URUTKAN-----" << endl;
+                    switch (pilPengurutan)
+                    {
+                    case '1':
+                        cout << "Pengurutan berdasarkan Judul Buku" << endl;
+                        bubble(1, temp, manipulasi);
+                        break;
+                    case '2':
+                        cout << "Pengurutan berdasarkan Pengarang" << endl;
+                        bubble(2, temp, manipulasi);
+                        break;
+                    case '3':
+                        cout << "Pengurutan berdasarkan Penerbit" << endl;
+                        bubble(3, temp, manipulasi);
+                        break;
+                    case '4':
+                        cout << "Pengurutan berdasarkan Tahun Terbit" << endl;
+                        bubble(4, temp, manipulasi);
+                        break;
+                    case '5':
+                        cout << "Pengurutan berdasarkan Harga" << endl;
+                        bubble(5, temp, manipulasi);
+                        break;
+                    }
+                    cout << "Kembali ke menu utama [y/n] : ";
+                    cin >> home;
                     break;
                 }
-                break;
-            case '2':
-                system("cls");
-                cout << "Urutkan berdasarkan" << endl;
-                cout << "1. Judul Buku" << endl;
-                cout << "2. Pengarang" << endl;
-                cout << "3. Penerbit" << endl;
-                cout << "4. Tahun Terbit" << endl;
-                cout << "5. Harga" << endl;
+            case 2:
+                cout << endl;
+                daftarPilUrutan();
                 cout << "Masukan pilihan : ";
                 cin >> pilPengurutan;
                 system("cls");
                 cout << "-----DATA SEBELUM DI URUTKAN-----" << endl;
                 dataBuku();
-                cout << endl;
-                cout << "-----DATA SETELAH DI URUTKAN-----" << endl;
-                switch (pilPengurutan)
+                if (temp > 0)
                 {
-                case '1':
-                    cout << "Pengurutan berdasarkan Judul Buku" << endl;
-                    bubble_dsc(pilPengurutan, temp);
-                    break;
-                case '2':
-                    cout << "Pengurutan berdasarkan Pengarang" << endl;
-                    bubble_dsc(pilPengurutan, temp);
-                    break;
-                case '3':
-                    cout << "Pengurutan berdasarkan Penerbit" << endl;
-                    bubble_dsc(pilPengurutan, temp);
-                    break;
-                case '4':
-                    cout << "Pengurutan berdasarkan Tahun Terbit" << endl;
-                    bubble_dsc(pilPengurutan, temp);
-                    break;
-                case '5':
-                    cout << "Pengurutan berdasarkan Harga" << endl;
-                    bubble_dsc(pilPengurutan, temp);
+                    buku *manipulasi = new buku[temp];
+                    salinData(data, manipulasi, temp);
+                    cout << endl;
+                    cout << "-----DATA SETELAH DI URUTKAN-----" << endl;
+                    switch (pilPengurutan)
+                    {
+                    case '1':
+                        cout << "Pengurutan berdasarkan Judul Buku" << endl;
+                        bubble(6, temp, manipulasi);
+                        break;
+                    case '2':
+                        cout << "Pengurutan berdasarkan Pengarang" << endl;
+                        bubble(7, temp, manipulasi);
+                        break;
+                    case '3':
+                        cout << "Pengurutan berdasarkan Penerbit" << endl;
+                        bubble(8, temp, manipulasi);
+                        break;
+                    case '4':
+                        cout << "Pengurutan berdasarkan Tahun Terbit" << endl;
+                        bubble(9, temp, manipulasi);
+                        break;
+                    case '5':
+                        cout << "Pengurutan berdasarkan Harga" << endl;
+                        bubble(10, temp, manipulasi);
+                        break;
+                    }
+                    cout << "Kembali ke menu utama [y/n] : ";
+                    cin >> home;
                     break;
                 }
-                break;
             }
             break;
         case '4':
@@ -390,12 +375,12 @@ int main()
             break;
         case '5':
             cout << "Pencarian Data dengan Sequential Search" << endl;
-            cout << "Masukan judul buku yang dicari : ";
+            cout << "Masukan tahun terbit buku yang dicari : ";
             cin >> cari;
             break;
         case '6':
             cout << "Pencarian Data dengan Binary Search" << endl;
-            cout << "Masukan judul buku yang dicari : ";
+            cout << "Masukan tahun terbit buku yang dicari : ";
             cin >> cari;
             break;
         case '7':
