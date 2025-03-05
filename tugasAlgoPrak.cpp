@@ -46,7 +46,7 @@ int inputDataBuku(int numBooks)
         cout << endl;
     }
     a += numBooks;
-    return temp, a;
+    return 0;
 }
 
 int tampilanHeader()
@@ -148,17 +148,17 @@ int bubble(int k, int temp, buku *manipulasi)
                 swap(manipulasi[j], manipulasi[j + 1]);
             }
             // descending
-            else if (k == 6 && manipulasi[j].judul < manipulasi[j + 1].judul)
+            else if (k == 6)
             {
-                swap(manipulasi[j], manipulasi[j + 1]);
+                cout << "belum ada" << endl;
             }
-            else if (k == 7 && manipulasi[j].pengarang < manipulasi[j + 1].pengarang)
+            else if (k == 7)
             {
-                swap(manipulasi[j], manipulasi[j + 1]);
+                cout << "belum ada" << endl;
             }
-            else if (k == 8 && manipulasi[j].penerbit < manipulasi[j + 1].penerbit)
+            else if (k == 8)
             {
-                swap(manipulasi[j], manipulasi[j + 1]);
+                cout << "belum ada" << endl;
             }
             else if (k == 9 && manipulasi[j].terbit < manipulasi[j + 1].terbit)
             {
@@ -168,40 +168,45 @@ int bubble(int k, int temp, buku *manipulasi)
             {
                 swap(manipulasi[j], manipulasi[j + 1]);
             }
-        }
-    }
-    tampilanHeader();
-    for (int b = 0; b < temp; b++)
-    {
-        for (int k = 0; k < 5; k++)
-        {
-            cout << setw(2) << " ";
-            switch (k)
+            // ascending untuk binary_search
+            else if (k == 11 && manipulasi[j].terbit > manipulasi[j + 1].terbit)
             {
-            case 0:
-                cout << manipulasi[b].judul << setw(20 - manipulasi[b].judul.size()) << setiosflags(ios::right) << "|";
-                break;
-            case 1:
-                cout << manipulasi[b].pengarang << setw(20 - manipulasi[b].pengarang.size()) << setiosflags(ios::right) << "|";
-                break;
-            case 2:
-                cout << manipulasi[b].penerbit << setw(20 - manipulasi[b].penerbit.size()) << setiosflags(ios::right) << "|";
-                break;
-            case 3:
-                cout << manipulasi[b].terbit << setw(15 - (to_string(manipulasi[b].terbit)).size()) << setiosflags(ios::right) << "|";
-                break;
-            case 4:
-                cout << manipulasi[b].harga << setw(15 - (to_string(manipulasi[b].harga)).size()) << setiosflags(ios::right) << "|";
-                break;
+                swap(manipulasi[j], manipulasi[j + 1]);
             }
         }
-        cout << endl;
     }
-    cout << "Kembali ke menu utama [y/n] : ";
-    cin >> home;
-    if (home == 'y')
+    if (k != 11)
     {
-        delete[] manipulasi;
+        tampilanHeader();
+        for (int b = 0; b < temp; b++)
+        {
+            for (int k = 0; k < 5; k++)
+            {
+                cout << setw(2) << " ";
+                switch (k)
+                {
+                case 0:
+                    cout << manipulasi[b].judul << setw(20 - manipulasi[b].judul.size()) << setiosflags(ios::right) << "|";
+                    break;
+                case 1:
+                    cout << manipulasi[b].pengarang << setw(20 - manipulasi[b].pengarang.size()) << setiosflags(ios::right) << "|";
+                    break;
+                case 2:
+                    cout << manipulasi[b].penerbit << setw(20 - manipulasi[b].penerbit.size()) << setiosflags(ios::right) << "|";
+                    break;
+                case 3:
+                    cout << manipulasi[b].terbit << setw(15 - (to_string(manipulasi[b].terbit)).size()) << setiosflags(ios::right) << "|";
+                    break;
+                case 4:
+                    cout << manipulasi[b].harga << setw(15 - (to_string(manipulasi[b].harga)).size()) << setiosflags(ios::right) << "|";
+                    break;
+                }
+            }
+            cout << endl;
+            delete[] manipulasi;
+            cout << "Kembali ke menu utama [y/n] : ";
+            cin >> home;
+        }
     }
     return 0;
 }
@@ -300,13 +305,12 @@ int sequential_search(int temp, buku *data)
         {
             cout << endl;
             tampilanHeaderSearch();
-            cout << endl;
             for (int k = 0; k < 2; k++)
             {
                 switch (k)
                 {
                 case 0:
-                    cout << data[i].judul << setw(20 - data[i].judul.size()) << setiosflags(ios::right) << "|" << setw(2) << setiosflags(ios::right) << "|";
+                    cout << data[i].judul << setw(20 - data[i].judul.size()) << setiosflags(ios::right) << "|" << setw(2) << setiosflags(ios::right) << " ";
                     break;
                 case 1:
                     cout << data[i].terbit << setw(15 - (to_string(data[i].terbit)).size()) << setiosflags(ios::right) << "|";
@@ -326,9 +330,53 @@ int sequential_search(int temp, buku *data)
     return 0;
 }
 
-int binary_search()
+int binary_search(int cari, buku *manipulasi, int temp)
 {
-    cout << "belum ada";
+    cout << endl;
+    int awal = 0, akhir = temp - 1;
+    int tengah;
+    bool found = false; //
+    while ((!found) & (awal <= akhir))
+    {
+        tengah = (awal + akhir) / 2;
+        if (manipulasi[tengah].terbit == cari)
+        {
+            found = true;
+        }
+        else if (cari < manipulasi[tengah].terbit)
+        {
+            akhir = tengah - 1;
+        }
+        else
+        {
+            awal = tengah + 1;
+        }
+    }
+    if (found)
+    {
+        cout << endl;
+        tampilanHeaderSearch();
+        for (int k = 0; k < 2; k++)
+        {
+            switch (k)
+            {
+            case 0:
+                cout << data[awal].judul << setw(20 - data[awal].judul.size()) << setiosflags(ios::right) << "|" << setw(2) << setiosflags(ios::right) << " ";
+                break;
+            case 1:
+                cout << data[awal].terbit << setw(15 - (to_string(data[awal].terbit)).size()) << setiosflags(ios::right) << "|";
+                break;
+            }
+        }
+        cout << endl;
+    }
+    else
+    {
+        cout << "Buku yg terbit pada tahun " << cari << " tidak tersedia." << endl;
+    }
+    cout << endl;
+    cout << "Kembali ke menu utama [y/n] : ";
+    cin >> home;
     return 0;
 }
 
@@ -472,6 +520,7 @@ int main()
                 cout << "Kembali ke menu utama [y/n] : ";
                 cin >> home;
             }
+            break;
         case '4':
             system("cls");
             if (temp >= 10)
@@ -574,6 +623,7 @@ int main()
                 cout << "Kembali ke menu utama [y/n] : ";
                 cin >> home;
             }
+            break;
         case '5':
             system("cls");
             cout << "Pencarian Data dengan Sequential Search" << endl;
@@ -581,8 +631,14 @@ int main()
             break;
         case '6':
             system("cls");
+            int cari;
             cout << "Pencarian Data dengan Binary Search" << endl;
-            sequential_search(temp, data);
+            salinData(data, manipulasi, temp);
+            bubble(11, temp, manipulasi);
+            cout << "Masukkan tahun terbit buku yang dicari = ";
+            cin >> cari;
+            cout << endl;
+            binary_search(cari, manipulasi, temp);
             break;
         case '7':
             cout << "Terima Kasih" << endl;
